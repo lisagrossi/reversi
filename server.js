@@ -65,7 +65,7 @@ io.sockets.on('connection', function (socket) {
 			'result': 'success',
 			'room' : room joined,
 			'username' : username that joined, 
-			'socket_id' : the socket id of the person that, 
+			'socket_id' : the socket id of the person that joined, 
 			'membership' : number of people in the room including the new one
 	 	}
 	 	or
@@ -140,6 +140,7 @@ io.sockets.on('connection', function (socket) {
 									result: 'success',
 									room: room,
 									username: players[socket_in_room].username,
+									socket_id: socket_in_room,
 									membership: numClients
 							};
 		socket.emit('join_room_response',success_data);
