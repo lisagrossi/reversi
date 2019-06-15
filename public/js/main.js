@@ -222,7 +222,7 @@ socket.on('send_message_response',function(payload){
 
 
 function makeInviteButton(socket_id){
-	var newHTML = '<button type=\'button\' class=\'btn btn-outline-primary\'>Invite</button>';
+	var newHTML = '<button type=\'button\' class=\'btn btn-outline-primary\'id=\'invite\'>Invite</button>';
 	var newNode = $(newHTML);
 	newNode.click(function(){
 			invite(socket_id);
@@ -230,7 +230,7 @@ function makeInviteButton(socket_id){
 	return(newNode);
 }
 function makeInvitedButton(socket_id){
-	var newHTML = '<button type=\'button\' class=\'btn btn-primary\'>Invited</button>';
+	var newHTML = '<button type=\'button\' class=\'btn btn-primary\'id=\'invited\'>Invited</button>';
 	var newNode = $(newHTML);
 	newNode.click(function(){
 			uninvite(socket_id);
@@ -238,7 +238,7 @@ function makeInvitedButton(socket_id){
 	return(newNode);
 }
 function makePlayButton(socket_id){
-	var newHTML = '<button type=\'button\' class=\'btn btn-success\'>Play</button>';
+	var newHTML = '<button type=\'button\' class=\'btn btn-success\'id=\'play\'>Play</button>';
 	var newNode = $(newHTML);
 	newNode.click(function(){
 		game_start(socket_id);
@@ -259,7 +259,7 @@ $(function(){
 	console.log('*** Client Log Message: \'join_room\' payload: '+JSON.stringify(payload)); 
 	socket.emit('join_room',payload);
 
-$('#quit').append('<a href="lobby.html?username='+username+'" class="btn btn-danger btn-default active" role="button" aria-pressed="true">Quit</a>');
+$('#quit').append('<a href="lobby.html?username='+username+'" class="btn btn-danger btn-default active" id="quit" role="button" aria-pressed="true">Quit</a>');
 
 });
 
@@ -296,11 +296,11 @@ socket.on('game_update',function(payload){
 	}
 
 	/* Update my color */
-	if(socket.id == payload.game.player_white.socket){
-		my_color = 'white';
+	if(socket.id == payload.game.player_red.socket){
+		my_color = 'red';
 	}
-	else if(socket.id == payload.game.player_black.socket){
-		my_color = 'black';
+	else if(socket.id == payload.game.player_blue.socket){
+		my_color = 'blue';
 	}
 	else{
 		/* Something weird is going on, like three people playing at once */
@@ -333,17 +333,17 @@ socket.on('game_update',function(payload){
 
 	/* Animate changes to the board */
 
-	var blacksum = 0;
-	var whitesum = 0;
+	var bluesum = 0;
+	var redsum = 0;
 
 	var row, column;
 	for(row = 0; row < 8; row++){
 		for(column = 0; column < 8; column++){
 			if(board[row][column] == 'b'){
-				blacksum++;
+				bluesum++;
 			}
-			if(board[row][column] == 'w'){
-				whitesum++;
+			if(board[row][column] == 'r'){
+				redsum++;
 			}
 
 
@@ -352,29 +352,29 @@ socket.on('game_update',function(payload){
 			if(old_board[row][column] == '?' && board[row][column] == ' '){
 				$('#'+row+'_'+column).html('<img src="assets/images/empty.gif" alt="empty square"/>');
 			}
-			else if(old_board[row][column] == '?' && board[row][column] == 'w'){
-				$('#'+row+'_'+column).html('<img src="assets/images/empty_to_white.gif" alt="white square"/>');
+			else if(old_board[row][column] == '?' && board[row][column] == 'r'){
+				$('#'+row+'_'+column).html('<img src="assets/images/empty_to_red.gif" alt="red square"/>');
 			}
 			else if(old_board[row][column] == '?' && board[row][column] == 'b'){
-				$('#'+row+'_'+column).html('<img src="assets/images/empty_to_black.gif" alt="white square"/>');
+				$('#'+row+'_'+column).html('<img src="assets/images/empty_to_blue.gif" alt="red square"/>');
 			}
-			else if(old_board[row][column] == ' ' && board[row][column] == 'w'){
-				$('#'+row+'_'+column).html('<img src="assets/images/empty_to_white.gif" alt="white square"/>');
+			else if(old_board[row][column] == ' ' && board[row][column] == 'r'){
+				$('#'+row+'_'+column).html('<img src="assets/images/empty_to_red.gif" alt="red square"/>');
 			}
 			else if(old_board[row][column] == ' ' && board[row][column] == 'b'){
-				$('#'+row+'_'+column).html('<img src="assets/images/empty_to_black.gif" alt="black square"/>');
+				$('#'+row+'_'+column).html('<img src="assets/images/empty_to_blue.gif" alt="blue square"/>');
 			}
-			else if(old_board[row][column] == 'w' && board[row][column] == ' '){
-				$('#'+row+'_'+column).html('<img src="assets/images/white_to_empty.gif" alt="empty square"/>');
+			else if(old_board[row][column] == 'r' && board[row][column] == ' '){
+				$('#'+row+'_'+column).html('<img src="assets/images/red_to_empty.gif" alt="empty square"/>');
 			}
 			else if(old_board[row][column] == 'b' && board[row][column] == ' '){
-				$('#'+row+'_'+column).html('<img src="assets/images/black_to_empty.gif" alt="empty square"/>');
+				$('#'+row+'_'+column).html('<img src="assets/images/blue_to_empty.gif" alt="empty square"/>');
 			}
-			else if(old_board[row][column] == 'w' && board[row][column] == 'b'){
-				$('#'+row+'_'+column).html('<img src="assets/images/white_to_black.gif" alt="black square"/>');
+			else if(old_board[row][column] == 'r' && board[row][column] == 'b'){
+				$('#'+row+'_'+column).html('<img src="assets/images/red_to_blue.gif" alt="blue square"/>');
 			}
-			else if(old_board[row][column] == 'b' && board[row][column] == 'w'){
-				$('#'+row+'_'+column).html('<img src="assets/images/black_to_white.gif" alt="white square"/>');
+			else if(old_board[row][column] == 'b' && board[row][column] == 'r'){
+				$('#'+row+'_'+column).html('<img src="assets/images/blue_to_red.gif" alt="red square"/>');
 			}
 			else{
 				$('#'+row+'_'+column).html('<img src="assets/images/error.gif" alt="error"/>');
@@ -402,8 +402,8 @@ socket.on('game_update',function(payload){
 		}
 	}
 }
-$('#blacksum').html(blacksum);
-$('#whitesum').html(whitesum);
+$('#bluesum').html(bluesum);
+$('#redsum').html(redsum);
 
 old_board = board;
 });
@@ -431,7 +431,7 @@ socket.on('game_over',function(payload){
 	/* Jump to a new page */
 
 	$('#game_over').html('<h1>Game Over</h1><h2>'+payload.who_won+' won!</h2>');
-	$('#game_over').append('<a href="lobby.html?username='+username+'" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Return to the lobby</a>');
+	$('#game_over').append('<a href="lobby.html?username='+username+'" class="btn btn-success btn-lg active" id="green" role="button" aria-pressed="true">Return to the lobby</a>');
 });
 
 

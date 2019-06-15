@@ -1,0 +1,57 @@
+#green{
+	background-color: rgb(78,206,177);
+	border-color: rgb(78,206,177);
+}
+#green:hover{
+	background-color: rgb(25,154,128);
+	border-color: rgb(25,154,128);
+}
+#gray{
+	background-color: rgb(107,107,107);
+	border-color: rgb(107,107,107);
+}
+#gray:hover{
+	background-color: rgb(73,73,73);
+	border-color: rgb(73,73,73);
+}
+#greenText{
+	color: rgb(78,206,177);
+}
+#invite{
+	background-color: none;
+	border-color: rgb(78,206,177);
+	color: rgb(78,206,177);
+}
+#invite:hover{
+	background-color: rgb(78,206,177);
+	border-color: rgb(78,206,177);
+	color: white;
+}
+
+#invited{
+	background-color: rgb(78,206,177);
+	border-color: rgb(78,206,177);
+	color: white;
+}
+
+#play{
+background-color: rgb(53,141,198);
+	border-color: rgb(53,141,198);
+	color: white;
+}
+#play:hover{
+background-color: rgb(48,123,165);
+	border-color: rgb(48,123,165);
+	color: white;
+}
+#quit{
+background-color: rgb(234,122,103);
+	border-color: rgb(234,122,103);
+	color: white;
+}
+#quit:hover{
+background-color: rgb(211,94,79);
+	border-color: rgb(211,94,79);
+	color: white;
+}
+
